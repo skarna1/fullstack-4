@@ -1,14 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const url = process.env.MONGODB_URI
 
-mongoose.connect(url, { useNewUrlParser: true })
-  .then(() => {
-    console.log('connected to database', url)
-  })
-  .catch(err => {
-    console.log(err)
-  })
 
 const blogSchema = new Schema({
   title: String,
