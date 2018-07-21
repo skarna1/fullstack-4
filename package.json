@@ -1,0 +1,30 @@
+{
+  "name": "bloglist",
+  "version": "1.0.0",
+  "description": "Blog list application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "watch": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skarna1/fullstack-4.git"
+  },
+  "author": "Sami Karna",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/skarna1/fullstack-4/issues"
+  },
+  "homepage": "https://github.com/skarna1/fullstack-4#readme",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "mongoose": "^5.2.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.3"
+  }
+}
