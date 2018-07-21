@@ -29,11 +29,21 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true })
     console.log(err)
   })
 
+const formatBlog = (blog) => {
+  return {
+    id: blog._id,
+    title: blog.title,
+    author: blog.author,
+    url: blog.url,
+    likes: blog.likes
+  }
+}
+
 app.get('/api/blogs', (request, response) => {
   Blog
     .find({})
     .then(blogs => {
-      response.json(blogs)
+      response.json(blogs.map(formatBlog))
     })
     .catch(err => {
       console.log(err)
@@ -41,12 +51,34 @@ app.get('/api/blogs', (request, response) => {
 })
 
 app.post('/api/blogs', (request, response) => {
-  const blog = new Blog(request.body)
+
+  if (request.body.title === undefined) {
+    return response.status(400).json({ error: 'title missing' })
+  }
+  if (request.body.author === undefined) {
+    return response.status(400).json({ error: 'author missing' })
+  }
+  if (request.body.url === undefined) {
+    return response.status(400).json({ error: 'url missing' })
+  }
+  if (request.body.likes === undefined) {
+    return response.status(400).json({ error: 'likes missing' })
+  }
+
+  const blog = new Blog({
+    title: request.body.title,
+    author: request.body.author,
+    url: request.body.url,
+    likes: request.body.likes
+  })
 
   blog
     .save()
-    .then(result => {
-      response.status(201).json(result)
+    .then(blog => {
+      return formatBlog(blog)
+    })
+    .then(formattedBlog => {
+      response.status(201).json(formattedBlog)
     })
     .catch(err => {
       console.log(err)
